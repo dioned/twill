@@ -42,6 +42,13 @@ class FilesUploaderConfig
         $endpointType = $this->config->get('twill.file_library.endpoint_type');
         $allowedExtensions = $this->config->get('twill.file_library.allowed_extensions');
 
+        $currentModule = request()->segment(2);
+        
+        if(!empty($this->config->get('twill.file_library.'.$currentModule.'.allowed_extensions')))
+        {
+            $allowedExtensions = $this->config->get('twill.file_library.'.$currentModule.'.allowed_extensions');
+        }
+
         // anonymous functions are used to let configuration dictate
         // the execution of the appropriate implementation
         $endpointByType = [
